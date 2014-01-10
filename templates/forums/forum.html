@@ -1,0 +1,17 @@
+{% extends 'forums/base.html' %}
+
+{% load static %}
+
+{% block title %}{{ forum_title }}{% endblock %}
+
+{% block body_block %}
+{% if threads %}
+	{% for thread in threads %}
+		<div class="col-md-8">
+			<h4><a href="/forums/{{ forum_title_url }}/{{ thread.url }}">{{ thread.title }}</a><br /></h4>
+		</div>
+	{% endfor %}
+{% else %}
+	There are no threads here.
+{% endif %}
+{% endblock %}
