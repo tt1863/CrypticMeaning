@@ -10,6 +10,12 @@
 		<div class="col-md-8">
 			<h4><a href="/forums/{{ forum_title_url }}/{{ thread.url }}">{{ thread.title }}</a><br /></h4>
 		</div>
+		<div class="col-md-2">
+			{{ user.username }}
+		</div>
+		<div class="col-md-2">
+			{{ thread.num_replies }}
+		</div>
 		<div class="col-md-4">
 			{{ thread.last_post }}
 		</div>

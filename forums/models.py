@@ -15,6 +15,12 @@ class Forum(models.Model):
         threads = Thread.objects.filter(forum=self)
         last_post = Post.objects.filter(thread=threads).latest('date_posted').date_posted
         return last_post
+    
+    def num_threads(self):
+        return Thread.objects.filter(forum=self).count()
+    
+    def num_posts(self):
+        return Post.objects.filter(thread=Thread.objects.filter(forum=self)).count()
         
     
 class Thread(models.Model):
@@ -29,6 +35,9 @@ class Thread(models.Model):
     def last_post(self):
         last_post = Post.objects.filter(thread=self).latest('date_posted').date_posted
         return last_post
+    
+    def num_replies(self):
+        return Post.objects.filter(thread=self).count() - 1
     
     
 class Post(models.Model):

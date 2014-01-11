@@ -2,6 +2,7 @@ from django.conf.urls import patterns, include, url
 from forums import views
 
 urlpatterns = patterns('',
+    url(r'^login/', views.user_login, name='login'),
     # ex: /forums/
     url(r'^$', views.index, name='index'),
     # ex: /forums/General_Forum/
