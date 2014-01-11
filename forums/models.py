@@ -11,6 +11,12 @@ class Forum(models.Model):
     def __unicode__(self):
         return self.title
     
+    def last_post(self):
+        threads = Thread.objects.filter(forum=self)
+        last_post = Post.objects.filter(thread=threads).latest('date_posted').date_posted
+        return last_post
+        
+    
 class Thread(models.Model):
     forum = models.ForeignKey(Forum)
     title = models.CharField(max_length=100)
@@ -20,10 +26,18 @@ class Thread(models.Model):
     def __unicode__(self):
         return self.title
     
+    def last_post(self):
+        last_post = Post.objects.filter(thread=self).latest('date_posted').date_posted
+        return last_post
+    
+    
 class Post(models.Model):
     thread = models.ForeignKey(Thread)
     content = models.CharField(max_length=5000)
     date_posted = models.DateTimeField('date posted')
+    
+    #Add this field
+    #user = models.ForeignKey(User)
     
     def __unicode__(self):
         return self.content

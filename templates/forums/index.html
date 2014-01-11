@@ -15,6 +15,9 @@
 					<h2><a href="/forums/{{ forum.url|urlencode }}">{{ forum.title }}</a><br /></h2>
 					<p class="lead">{{ forum.description }}</p>
 				</div>
+				<div class="forum col-md-4">
+					{{ forum.last_post }}
+				</div>
 			</div>
 		</div>
 	{% endfor %}

@@ -8,8 +8,7 @@
 {% if posts %}
 	{% for post in posts %}
 		<div>
-			{{ post.content }}
-			<hr />
+			{{ post.content }}{{ post.date_posted }}
 		</div>
 	{% endfor %}
 {% else %}

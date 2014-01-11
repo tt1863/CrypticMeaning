@@ -4,3 +4,15 @@ body {
     padding-bottom: 20px;
     padding-top: 50px;
 }
+
+.alert {
+	margin-top: 20px;
+}
+
+/* Forum */
+
+.thread .row {
+	background-color: #EEEEEE;
+}
+
+

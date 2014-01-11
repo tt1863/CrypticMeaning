@@ -56,7 +56,7 @@ def thread(request, forum_title_url, thread_title_url):
         forum = Forum.objects.get(title=forum_title)
         thread = Thread.objects.get(forum=forum, title=thread_title)
         
-        posts = Post.objects.filter(thread=thread)
+        posts = Post.objects.filter(thread=thread).order_by('-date_posted')
         
         context_dict['thread'] = thread
         context_dict['posts'] = posts
