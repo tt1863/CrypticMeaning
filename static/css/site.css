@@ -15,4 +15,52 @@ body {
 	background-color: #EEEEEE;
 }
 
+.logged_user {
+	color: #000000;
+}
+
+/* Grid */
+
+.container {
+    padding-left: 15px;
+    padding-right: 15px;
+    width: 1500px;
+}
+
+h4 {
+    margin-top: 25px;
+}
+.row {
+    margin-bottom: 20px;
+}
+.row .row {
+    margin-bottom: 0;
+    margin-top: 10px;
+}
+
+[class*="col-"] {
+    padding-bottom: 15px;
+    padding-top: 15px;
+    background-color: #EEEEEE;
+}
+
+.forum {
+	padding-bottom: 0px;
+    padding-top: 0px;
+}
+
+hr {
+    margin-bottom: 40px;
+    margin-top: 40px;
+}
+
+.index_headers {
+	text-align: center;
+}
+
+.data {
+	text-align: center;
+	margin: 0 auto;
+}
+
 

@@ -7,21 +7,29 @@
 {% block shoutbox %}This is the index's shoutbox{% endblock %}
 
 {% block body_block %}
+<div class="forum_index">
 {% if forum_list %}
+	<div class="index_headers">
+		<div class="col-md-8">Forums</div>
+		<div class="col-md-1">Threads</div>
+		<div class="col-md-1">Posts</div>
+		<div class="col-md-2">Last post</div>
+	</div>
+	
 	{% for forum in forum_list %}
-		<div class="col-md-12">
+		<div class="forum col-md-12">
 			<div class="row">
-				<div class="forum col-md-8">
-					<h2><a href="/forums/{{ forum.url|urlencode }}">{{ forum.title }}</a><br /></h2>
+				<div class="col-md-8">
+					<h3><a href="/forums/{{ forum.url|urlencode }}">{{ forum.title }}</a><br /></h3>
 					<p class="lead">{{ forum.description }}</p>
 				</div>
-				<div class="forum col-md-2">
+				<div class="data col-md-1">
 					{{ forum.num_threads }}
 				</div>
-				<div class="forum col-md-2">
+				<div class="data col-md-1">
 					{{ forum.num_posts }}
 				</div>
-				<div class="forum col-md-4">
+				<div class="data col-md-2">
 					{{ forum.last_post }}
 				</div>
 			</div>
@@ -30,4 +38,5 @@
 {% else %}
 	There are no forums here.
 {% endif %}
+</div>
 {% endblock %}

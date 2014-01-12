@@ -21,6 +21,7 @@ def index(request):
     context_dict = {'forum_list': forum_list}
     return render_to_response('forums/index.html', context_dict, context)
 
+@login_required
 def forum(request, forum_title_url):
     context = RequestContext(request)
     
@@ -44,6 +45,7 @@ def forum(request, forum_title_url):
     
     return render_to_response('forums/forum.html', context_dict, context)
 
+@login_required
 def thread(request, forum_title_url, thread_title_url):
     context = RequestContext(request)
     
@@ -70,6 +72,8 @@ def user_login(request):
     # Like before, obtain the context for the user's request
     context = RequestContext(request)
     
+    success = True
+    
     # If the request is a HTTP POST, try to pull out the relevant information
     if request.method == 'POST':
         # Gather the username and password provided by the user
@@ -92,7 +96,7 @@ def user_login(request):
                 return HttpResponseRedirect('/forums')
             else:
                 # An inactive account was used - no logging in!
-                return HttpResponse("Your account is disabled.")
+                success = False
         else:
             # Bad login details were provided. So we can't log the user in.
             print "Invalid login details: {0}, {1}".format(username, password)
@@ -104,6 +108,11 @@ def user_login(request):
         # No context variables to pass to the template system, hence the
         # blank dictionary object...
         return render_to_response('forums/login.html', {}, context)
+    
+@login_required
+def user_logout(request):
+    logout(request)
+    return HttpResponseRedirect('/forums')
 
 def decode_url(forum_title_url):
     forum_title = forum_title_url.replace('_', ' ')

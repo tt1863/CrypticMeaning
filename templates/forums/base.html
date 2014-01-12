@@ -35,31 +35,33 @@
           <a class="navbar-brand" href="/forums">CrypticMeaning</a>
         </div>
         <div class="navbar-collapse collapse">
-          {% if user.is_authenticated %}
-          <form class="navbar-form navbar-right" role="form" method="post" action="/forums/login/">
-          {% csrf_token %}
-            <div class="form-group">
-              <input type="text" name="username" placeholder="Username" class="form-control">
-            </div>
-            <div class="form-group">
-              <input type="password" name="password" placeholder="Password" class="form-control">
-            </div>
-            <button type="submit" class="btn btn-success">Sign in</button>
-          </form>
-          {% else %}
-            Hello, {{ user.username }}
-          {% endif %}
+          <ul class="nav navbar-nav">
+            <li><a href="#">Link</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+	          {% if not user.is_authenticated %}
+	          <form id="login_form" class="navbar-form navbar-right" role="form" method="post" action="/forums/login/">
+	          {% csrf_token %}
+	            <div class="form-group">
+	              <input type="text" name="username" placeholder="Username" class="form-control">
+	            </div>
+	            <div class="form-group">
+	              <input type="password" name="password" placeholder="Password" class="form-control">
+	            </div>
+	            <button type="submit" class="btn btn-success">Sign in</button>
+	          </form>
+	          {% else %}
+	          <li>
+	            <a class="logged_user" href="/forums/profile/{{ user.username }}"><strong>{{ user.username }}</strong></a>
+              </li>
+              <li>
+	            <a href="/forums/logout" class="navbar-link">Log out</a>
+	          </li>
+	          {% endif %}
+            </ul>
         </div><!--/.navbar-collapse -->
       </div>
     </div>
-    
-    <div class="container">
-	    <div class="alert alert-danger fade in">
-			<button class="close" aria-hidden="true" data-dismiss="alert" type="button">&times;</button>
-			<strong>Holy guacamole!</strong>
-			Best check yo self, you're not looking too good.
-		</div>
-	</div>
 
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <div class="jumbotron">
@@ -75,6 +77,7 @@
       <div class="row">
         {% block body_block %}<h1>Put something here!</h1>{% endblock %}
 	  </div>
+  	
       <hr>
 
       <footer>
