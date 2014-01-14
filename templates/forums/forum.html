@@ -5,22 +5,34 @@
 {% block title %}{{ forum_title }}{% endblock %}
 
 {% block body_block %}
+<div class="thread_index">
 {% if threads %}
+  <table class="table table-hover">
+	<thead>
+	  <tr>
+		<th class="text-center">Thread</th>
+		<th class="text-center">Author</th>
+		<th class="text-center">Replies</th>
+		<th class="text-center">Last post</th>
+	  </tr>
+	</thead>
+	<tbody>
 	{% for thread in threads %}
-		<div class="col-md-8">
-			<h4><a href="/forums/{{ forum_title_url }}/{{ thread.url }}">{{ thread.title }}</a><br /></h4>
-		</div>
-		<div class="col-md-2">
-			{{ user.username }}
-		</div>
-		<div class="col-md-2">
-			{{ thread.num_replies }}
-		</div>
-		<div class="col-md-4">
-			{{ thread.last_post }}
-		</div>
+	  <tr>
+		<td>
+			<h4><a href="/forums/{{ forum_title_url }}/{{ thread.url }}">{{ thread.title }}</a></h4>
+		</td>
+		<td class="text-center">{{ user.username }}</td>
+		<td class="text-center">{{ thread.num_replies }}</td>
+		<td class="text-center">{{ thread.last_post|date:"M d, Y m:s a" }}</td>
+	  </tr>
 	{% endfor %}
 {% else %}
 	There are no threads here.
 {% endif %}
+	</tbody>
+  </table>
+</div>
+<hr>
+<a href="/forums/{{ forum_title_url }}/create_thread/" class="btn btn-default btn-sm" type="submit">New Thread</a>
 {% endblock %}

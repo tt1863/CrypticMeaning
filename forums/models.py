@@ -41,7 +41,11 @@ class Thread(models.Model):
         return last_post
     
     def num_replies(self):
-        return Post.objects.filter(thread=self).count() - 1
+        num_posts = Post.objects.filter(thread=self).count()
+        if num_posts > 1:
+            return num_posts - 1
+        else:
+            return num_posts
     
     
 class Post(models.Model):

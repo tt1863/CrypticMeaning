@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.models import User
 from forums.models import Forum, Thread, Post
-#from forums.forms import CategoryForm, PageForm, UserForm, UserProfileForm
+from forums.forms import ThreadForm
 from datetime import datetime
 import urllib2
 
@@ -108,6 +108,41 @@ def user_login(request):
         # No context variables to pass to the template system, hence the
         # blank dictionary object...
         return render_to_response('forums/login.html', {}, context)
+    
+def create_thread(request, forum_title_url):
+    context = RequestContext(request)
+    
+    forum_title = decode_url(forum_title_url)
+
+    if request.method == 'POST':
+        form = ThreadForm(request.POST)
+        
+        if form.is_valid():
+            # This time we cannot commit straight away.
+            # Not all fields are automatically populated!
+            thread = form.save(commit=False)
+            
+            forum_object = Forum.objects.get(title=forum_title)
+            thread.forum = forum_object
+            
+            thread.date_created = datetime.now()
+            thread.user = request.user
+            
+            # With this, we can then save our new model instance
+            thread.save()
+            
+            # Now that the page is saved, display the category instead
+            return forum(request, forum_title_url)
+        else:
+            print form.errors
+    else:
+        form = ThreadForm()
+        
+    return render_to_response('forums/create_thread.html',
+                              {'forum_title_url': forum_title_url,
+                               'forum_title': forum_title,
+                               'form': form},
+                              context)
     
 @login_required
 def user_logout(request):

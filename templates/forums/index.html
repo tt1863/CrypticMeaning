@@ -9,34 +9,31 @@
 {% block body_block %}
 <div class="forum_index">
 {% if forum_list %}
-	<div class="index_headers">
-		<div class="col-md-8">Forums</div>
-		<div class="col-md-1">Threads</div>
-		<div class="col-md-1">Posts</div>
-		<div class="col-md-2">Last post</div>
-	</div>
-	
+  <table class="table table-hover">
+	<thead>
+	  <tr>
+		<th class="text-center">Forum</th>
+		<th class="text-center">Threads</th>
+		<th class="text-center">Posts</th>
+		<th class="text-center">Last post</th>
+	  </tr>
+	</thead>
+	<tbody>
 	{% for forum in forum_list %}
-		<div class="forum col-md-12">
-			<div class="row">
-				<div class="col-md-8">
-					<h3><a href="/forums/{{ forum.url|urlencode }}">{{ forum.title }}</a><br /></h3>
-					<p class="lead">{{ forum.description }}</p>
-				</div>
-				<div class="data col-md-1">
-					{{ forum.num_threads }}
-				</div>
-				<div class="data col-md-1">
-					{{ forum.num_posts }}
-				</div>
-				<div class="data col-md-2">
-					{{ forum.last_post }}
-				</div>
-			</div>
-		</div>
+	  <tr>
+		<td>
+			<h4><a href="/forums/{{ forum.url|urlencode }}">{{ forum.title }}</a><br /></h4><br />
+			<p>{{ forum.description }}</p>
+		</td>
+		<td class="text-center">{{ forum.num_threads }}</td>
+		<td class="text-center">{{ forum.num_posts }}</td>
+		<td class="text-center">{{ forum.last_post|date:"M d, Y m:s a" }}</td>
+	  </tr>
 	{% endfor %}
 {% else %}
 	There are no forums here.
 {% endif %}
+	</tbody>
+  </table>
 </div>
 {% endblock %}
