@@ -42,7 +42,7 @@ class Thread(models.Model):
     
     def num_replies(self):
         num_posts = Post.objects.filter(thread=self).count()
-        if num_posts > 1:
+        if num_posts >= 1:
             return num_posts - 1
         else:
             return num_posts
