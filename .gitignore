@@ -1,2 +1,3 @@
 secret_settings.*
 *.pyc
+populate_test_data.py
