@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.models import User
 from forums.models import Forum, Thread, Post
-from forums.forms import ThreadForm
+from forums.forms import ThreadForm, PostForm
 from datetime import datetime
 import urllib2
 
@@ -115,33 +115,44 @@ def create_thread(request, forum_title_url):
     forum_title = decode_url(forum_title_url)
 
     if request.method == 'POST':
-        form = ThreadForm(request.POST)
+        thread_form = ThreadForm(request.POST)
+        post_form = PostForm(request.POST)
         
-        if form.is_valid():
+        if thread_form.is_valid and post_form.is_valid():
             # This time we cannot commit straight away.
             # Not all fields are automatically populated!
-            thread = form.save(commit=False)
+            thread = thread_form.save(commit=False)
+            post = post_form.save(commit=False)
+            user = User.objects.get(username=request.user)
             
             forum_object = Forum.objects.get(title=forum_title)
             thread.forum = forum_object
             
             thread.date_created = datetime.now()
-            thread.user = request.user
+            thread.user = user
             
             # With this, we can then save our new model instance
             thread.save()
             
+            post.thread = Thread.objects.get(title=thread)
+            post.user = user
+            post.date_posted = datetime.now()
+            
+            post.save()
+            
             # Now that the page is saved, display the category instead
             return forum(request, forum_title_url)
         else:
-            print form.errors
+            print thread_form.errors, post_form.errors
     else:
-        form = ThreadForm()
+        thread_form = ThreadForm()
+        post_form = PostForm()
         
     return render_to_response('forums/create_thread.html',
                               {'forum_title_url': forum_title_url,
                                'forum_title': forum_title,
-                               'form': form},
+                               'thread_form': thread_form,
+                               'post_form': post_form},
                               context)
     
 @login_required
