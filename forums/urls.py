@@ -5,7 +5,7 @@ urlpatterns = patterns('',
     # ex: /forums
     url(r'^$', views.index, name='index'),
     # ex: /forums/login
-    url(r'^login/', views.user_login, name='login'),
+    #url(r'^login/', views.user_login, name='login'),
     # ex: /forums/logout
     url(r'^logout/', views.user_logout, name='logout'),
     
