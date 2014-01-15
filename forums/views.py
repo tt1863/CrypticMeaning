@@ -114,25 +114,29 @@ def create_thread(request, forum_slug, forum_id):
         
         if thread_form.is_valid() and post_form.is_valid():
             
-            thread = thread_form.save(commit=False)
+            thread_object = thread_form.save(commit=False)
             post = post_form.save(commit=False)
         
             user = User.objects.get(username=request.user)
             date = datetime.now()
             
-            thread.forum = forum_object
-            thread.date_created = date
-            thread.user = user
+            thread_object.forum = forum_object
+            thread_object.date_created = date
+            thread_object.user = user
             
-            thread.save()
+            thread_object.save()
             
-            post.thread = thread
+            post.thread = thread_object
             post.user = user
             post.date_posted = date
             
             post.save()
             
-            return forum(request, forum_slug, forum_id)
+            thread_slug = slugify(thread_object.title)
+            thread_id = thread_object.id
+            
+            #return forum(request, forum_slug, forum_id)
+            return thread(request, forum_slug, forum_id, thread_slug, thread_id)
         else:
             print thread_form.errors, post_form.errors
     else:
