@@ -107,6 +107,6 @@ STATICFILES_DIRS = (
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(PROJECT_PATH, 'media') #Absolute path to the media directory
 
-LOGIN_URL = '/forums/login'
+LOGIN_URL = '/accounts/login'
 
 from secret_settings import *
