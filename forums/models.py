@@ -52,6 +52,7 @@ class Post(models.Model):
     thread = models.ForeignKey(Thread)
     content = models.CharField(max_length=5000)
     date_posted = models.DateTimeField('date posted')
+    user = models.ForeignKey(User)
     
     #Add this field
     #user = models.ForeignKey(User)

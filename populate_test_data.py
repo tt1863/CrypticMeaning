@@ -37,27 +37,33 @@ def populate():
     
     add_post(thread=Thread.objects.get(pk=1),
              content="Why would you post this?",
-             date_posted=datetime.now())
+             date_posted=datetime.now(),
+             user=User.objects.get(pk=1))
     
     add_post(thread=Thread.objects.get(pk=1),
              content="He's an idiot.",
-             date_posted=datetime.now())
+             date_posted=datetime.now(),
+             user=User.objects.get(pk=1))
     
     add_post(thread=Thread.objects.get(pk=2),
              content="This game is pretty cool, anyone want to play?",
-             date_posted=datetime.now())
+             date_posted=datetime.now(),
+             user=User.objects.get(pk=1))
     
     add_post(thread=Thread.objects.get(pk=2),
              content="Sorry, my PC is too slow.",
-             date_posted=datetime.now())
+             date_posted=datetime.now(),
+             user=User.objects.get(pk=1))
     
     add_post(thread=Thread.objects.get(pk=3),
              content="Django is really fun to work with.",
-             date_posted=datetime.now())
+             date_posted=datetime.now(),
+             user=User.objects.get(pk=1))
     
     add_post(thread=Thread.objects.get(pk=3),
              content="I agree.",
-             date_posted=datetime.now())
+             date_posted=datetime.now(),
+             user=User.objects.get(pk=1))
              
     print "Forums added:"
     for f in Forum.objects.all():
@@ -79,8 +85,8 @@ def add_thread(forum, title, date_created, user):
     t = Thread.objects.get_or_create(forum=forum, title=title, date_created=date_created, user=user)
     return t
 
-def add_post(thread, content, date_posted):
-    p = Post.objects.get_or_create(thread=thread, content=content, date_posted=date_posted)
+def add_post(thread, content, date_posted, user):
+    p = Post.objects.get_or_create(thread=thread, content=content, date_posted=date_posted, user=user)
     return p
 
 # Start execution here!
