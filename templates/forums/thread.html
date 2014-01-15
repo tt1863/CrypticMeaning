@@ -5,13 +5,30 @@
 {% block title %}{{ thread_title }}{% endblock %}
 
 {% block body_block %}
+<div class="post_index">
 {% if posts %}
+  <table class="table table-hover">
+	<thead>
+	  <tr>
+		<th>User</th>
+		<th>Content</th>
+		<th class="text-center">Date Posted</th>
+	  </tr>
+	</thead>
+	<tbody>
 	{% for post in posts %}
-		<div>
-			{{ post.content }}{{ post.date_posted }}
-		</div>
+	  <tr>
+		<td>{{ post.user }}</td>
+		<td>{{ post.content }}</td>
+		<td class="text-center">{{ post.date_posted }}</td>
+	  </tr>
 	{% endfor %}
 {% else %}
-	There are no posts here.
+	This thread doesn't seem to exist.
 {% endif %}
-{% endblock %}
+	</tbody>
+  </table>
+</div>
+<hr>
+<a href="/forums/{{ forum_url }}/{{ thread.url }}/reply" class="btn btn-default btn-sm" type="submit">Reply</a>
+{% endblock %}	

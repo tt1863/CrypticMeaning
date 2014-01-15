@@ -53,8 +53,12 @@ def thread(request, forum_slug, forum_id, thread_slug, thread_id):
         
         posts = Post.objects.filter(thread=thread)
         
+        thread.url = thread_slug + "-" + str(thread_id)
+        forum_url = forum_slug + "-" + str(thread_id)
+        
         context_dict = {'thread': thread,
-                        'posts': posts}
+                        'posts': posts,
+                        'forum_url': forum_url}
         
     except Thread.DoesNotExist:
         pass
