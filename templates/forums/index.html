@@ -22,7 +22,7 @@
 	{% for forum in forum_list %}
 	  <tr>
 		<td>
-			<h4><a href="/forums/{{ forum.url|urlencode }}">{{ forum.title }}</a><br /></h4><br />
+			<h4><a href="/forums/{{ forum.url|slugify }}-{{ forum.id }}">{{ forum.title }}</a><br /></h4><br />
 			<p>{{ forum.description }}</p>
 		</td>
 		<td class="text-center">{{ forum.num_threads }}</td>

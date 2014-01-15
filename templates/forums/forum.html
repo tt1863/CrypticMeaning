@@ -20,7 +20,7 @@
 	{% for thread in threads %}
 	  <tr>
 		<td>
-			<h4><a href="/forums/{{ forum_title_url }}/{{ thread.url }}">{{ thread.title }}</a></h4>
+			<h4><a href="/forums/{{ forum.title|slugify }}-{{ forum.id }}/{{ thread.url }}">{{ thread.title }}</a></h4>
 		</td>
 		<td class="text-center">{{ user.username }}</td>
 		<td class="text-center">{{ thread.num_replies }}</td>

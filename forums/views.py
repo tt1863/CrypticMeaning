@@ -6,6 +6,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.models import User
+from django.template.defaultfilters import slugify
 from forums.models import Forum, Thread, Post
 from forums.forms import ThreadForm, PostForm
 from datetime import datetime
@@ -16,53 +17,43 @@ def index(request):
     forum_list = Forum.objects.order_by("sequence")
     
     for forum in forum_list:
-        forum.url = urlencode(forum.title)
+        forum.url = slugify(forum.title)
     
     context_dict = {'forum_list': forum_list}
     return render_to_response('forums/index.html', context_dict, context)
 
 @login_required
-def forum(request, forum_title_url):
+def forum(request, forum_slug, forum_id):
     context = RequestContext(request)
     
-    forum_title = urldecode(forum_title_url)
-    
-    context_dict = {'forum_title': forum_title,
-                    'forum_title_url': forum_title_url}
-    
     try:
-        forum = Forum.objects.get(title=forum_title)
+        forum = Forum.objects.get(id=forum_id)
         
         threads = Thread.objects.filter(forum=forum)
         
         for thread in threads:
-            thread.url = encode_url(thread.title)
+            thread.url = slugify(thread.title) + "-" + str(thread.id)
+            
+        context_dict = {'forum': forum,
+                        'threads': threads,}
         
-        context_dict['forum'] = forum
-        context_dict['threads'] = threads
     except Forum.DoesNotExist:
         pass
     
     return render_to_response('forums/forum.html', context_dict, context)
 
 @login_required
-def thread(request, forum_title_url, thread_title_url):
+def thread(request, forum_slug, forum_id, thread_slug, thread_id):
     context = RequestContext(request)
     
-    forum_title = decode_url(forum_title_url)
-    thread_title = decode_url(thread_title_url)
-    
-    context_dict = {'thread_title': thread_title,
-                    'thread_title_url': thread_title_url}
-    
     try:
-        forum = Forum.objects.get(title=forum_title)
-        thread = Thread.objects.get(forum=forum, title=thread_title)
+        thread = Thread.objects.get(id=thread_id)
         
-        posts = Post.objects.filter(thread=thread).order_by('-date_posted')
+        posts = Post.objects.filter(thread=thread)
         
-        context_dict['thread'] = thread
-        context_dict['posts'] = posts
+        context_dict = {'thread': thread,
+                        'posts': posts}
+        
     except Thread.DoesNotExist:
         pass
     
