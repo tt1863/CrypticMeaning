@@ -17,7 +17,7 @@ def index(request):
     forum_list = Forum.objects.order_by("sequence")
     
     for forum in forum_list:
-        forum.url = slugify(forum.title)
+        forum.url = slugify(forum.title) + "-" + str(forum.id)
     
     context_dict = {'forum_list': forum_list}
     return render_to_response('forums/index.html', context_dict, context)
@@ -34,8 +34,10 @@ def forum(request, forum_slug, forum_id):
         for thread in threads:
             thread.url = slugify(thread.title) + "-" + str(thread.id)
             
+        forum.url = forum_slug + "-" + str(forum.id)
+            
         context_dict = {'forum': forum,
-                        'threads': threads,}
+                        'threads': threads}
         
     except Forum.DoesNotExist:
         pass
