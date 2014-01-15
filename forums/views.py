@@ -51,7 +51,7 @@ def thread(request, forum_slug, forum_id, thread_slug, thread_id):
     try:
         thread = Thread.objects.get(id=thread_id)
         
-        posts = Post.objects.filter(thread=thread)
+        posts = Post.objects.filter(thread=thread).order_by('date_posted')
         
         thread.url = thread_slug + "-" + str(thread_id)
         forum_url = forum_slug + "-" + str(thread_id)
@@ -64,6 +64,40 @@ def thread(request, forum_slug, forum_id, thread_slug, thread_id):
         pass
     
     return render_to_response('forums/thread.html', context_dict, context)
+
+def reply(request, forum_slug, forum_id, thread_slug, thread_id):
+    context = RequestContext(request)
+     
+    current_thread = Thread.objects.get(id=thread_id)
+    forum_url = forum_slug + "-" + forum_id
+    thread_url = thread_slug + "-" + thread_id
+     
+    if request.method == 'POST':
+        post_form = PostForm(request.POST)
+         
+        if post_form.is_valid():
+            post = post_form.save(commit=False)
+             
+            user = User.objects.get(username=request.user)
+             
+            post.thread = current_thread
+            post.user = user
+            post.date_posted = datetime.now()
+             
+            post.save()
+             
+            return thread(request, forum_slug, forum_id, thread_slug, thread_id)
+        else:
+            print post_form.errors
+    else:
+        post_form = PostForm()
+    
+    context_dict = {'post_form': post_form,
+                    'forum_url': forum_url,
+                    'thread_url': thread_url}
+    
+    return render_to_response('forums/reply.html', context_dict, context)
+            
 
 def user_login(request):
     # Like before, obtain the context for the user's request
