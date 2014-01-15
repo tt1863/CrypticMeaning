@@ -10,7 +10,7 @@ urlpatterns = patterns('',
     url(r'^logout/', views.user_logout, name='logout'),
     
     # ex: /forums/General Forum/create_thread
-    url(r'^(?P<forum_title_url>\w+)/create_thread/$', views.create_thread, name='create_thread'),
+    url(r'^(?P<forum_slug>[-\w\d]+)-(?P<forum_id>\d+)/create_thread/$', views.create_thread, name='create_thread'),
     
     # ex: /forums/general_forum-1
     url(r'^(?P<forum_slug>[-\w\d]+)-(?P<forum_id>\d+)/$', views.forum, name='forum'),

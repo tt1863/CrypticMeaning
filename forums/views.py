@@ -102,51 +102,48 @@ def user_login(request):
         # blank dictionary object...
         return render_to_response('forums/login.html', {}, context)
     
-def create_thread(request, forum_title_url):
+def create_thread(request, forum_slug, forum_id):
     context = RequestContext(request)
     
-    forum_title = decode_url(forum_title_url)
-
+    forum_object = Forum.objects.get(id=forum_id)
+    forum.url = forum_slug + "-" + str(forum_object.id)
+    
     if request.method == 'POST':
         thread_form = ThreadForm(request.POST)
         post_form = PostForm(request.POST)
         
-        if thread_form.is_valid and post_form.is_valid():
-            # This time we cannot commit straight away.
-            # Not all fields are automatically populated!
+        if thread_form.is_valid() and post_form.is_valid():
+            
             thread = thread_form.save(commit=False)
             post = post_form.save(commit=False)
+        
             user = User.objects.get(username=request.user)
+            date = datetime.now()
             
-            forum_object = Forum.objects.get(title=forum_title)
             thread.forum = forum_object
-            
-            thread.date_created = datetime.now()
+            thread.date_created = date
             thread.user = user
             
-            # With this, we can then save our new model instance
             thread.save()
             
-            post.thread = Thread.objects.get(title=thread)
+            post.thread = thread
             post.user = user
-            post.date_posted = datetime.now()
+            post.date_posted = date
             
             post.save()
             
-            # Now that the page is saved, display the category instead
-            return forum(request, forum_title_url)
+            return forum(request, forum_slug, forum_id)
         else:
             print thread_form.errors, post_form.errors
     else:
         thread_form = ThreadForm()
         post_form = PostForm()
         
-    return render_to_response('forums/create_thread.html',
-                              {'forum_title_url': forum_title_url,
-                               'forum_title': forum_title,
-                               'thread_form': thread_form,
-                               'post_form': post_form},
-                              context)
+    context_dict = {'thread_form': thread_form,
+                    'post_form': post_form,
+                    'forum_url': forum.url}
+        
+    return render_to_response('forums/create_thread.html', context_dict, context)
     
 @login_required
 def user_logout(request):

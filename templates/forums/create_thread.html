@@ -5,7 +5,7 @@
 {% block title %}Create a Thread{% endblock %}
 
 {% block body_block %}
-<form id="thread_form" method="post" action="/forums/{{ forum_title_url }}/create_thread/" class="form-horizontal">
+<form id="thread_form" method="post" action="/forums/{{ forum_url }}/create_thread/" class="form-horizontal">
 	{% csrf_token %}
 	{% for hidden in form.hidden_fields %}
 	{{ hidden }}
