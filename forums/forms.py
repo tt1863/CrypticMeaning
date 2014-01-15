@@ -1,6 +1,7 @@
 from django import forms
 from forums.models import Thread, Post
 from django.contrib.auth.models import User
+from django.forms import Textarea
 from datetime import datetime
 
 class ThreadForm(forms.ModelForm):
@@ -12,7 +13,7 @@ class ThreadForm(forms.ModelForm):
         exclude = ('forum', 'date_created', 'user')
         
 class PostForm(forms.ModelForm):
-    content = forms.CharField(max_length=5000)
+    content = forms.CharField(max_length=5000, widget=forms.Textarea)
     
     class Meta:
         model = Post
