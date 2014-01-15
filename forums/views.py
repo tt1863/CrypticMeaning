@@ -65,6 +65,7 @@ def thread(request, forum_slug, forum_id, thread_slug, thread_id):
     
     return render_to_response('forums/thread.html', context_dict, context)
 
+@login_required
 def reply(request, forum_slug, forum_id, thread_slug, thread_id):
     context = RequestContext(request)
      
@@ -140,6 +141,7 @@ def user_login(request):
         # blank dictionary object...
         return render_to_response('forums/login.html', {}, context)
     
+@login_required
 def create_thread(request, forum_slug, forum_id):
     context = RequestContext(request)
     
