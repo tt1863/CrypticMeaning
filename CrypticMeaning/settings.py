@@ -110,3 +110,6 @@ MEDIA_ROOT = os.path.join(PROJECT_PATH, 'media') #Absolute path to the media dir
 LOGIN_URL = '/accounts/login'
 
 from secret_settings import *
+
+import dj_database_url
+DATABASES = {'default': dj_database_url.config(default='postgres://localhost')}
