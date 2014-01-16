@@ -100,9 +100,10 @@ TEMPLATE_DIRS = (TEMPLATE_PATH)
 
 STATIC_PATH = os.path.join(PROJECT_PATH, 'static')
 
-STATICFILES_DIRS = (
-    STATIC_PATH,
-)
+#COMMMENTED OUT FOR HEROKU
+# STATICFILES_DIRS = (
+#     STATIC_PATH,
+# )
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(PROJECT_PATH, 'media') #Absolute path to the media directory
@@ -134,3 +135,6 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
+
+DEBUG = bool(os.environ.get('DJANGO_DEBUG', ''))
+TEMPLATE_DEBUG = DEBUG
