@@ -142,13 +142,9 @@ TEMPLATE_DEBUG = DEBUG
 #For Amazon S3 static file storage
 INSTALLED_APPS += ('storages',)
 
-3
-4
-5
-
-#May be cuasing app crash
-# if not DEBUG:
-#     AWS_STORAGE_BUCKET_NAME = os.environ['crypticmeaning']
-#     STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
-#     S3_URL = 'http://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
-#     STATIC_URL = S3_URL
+#Causing App crash in Heroku
+if not DEBUG:
+    AWS_STORAGE_BUCKET_NAME = os.environ['crypticmeaning']
+    STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+    S3_URL = 'http://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
+    STATIC_URL = S3_URL
