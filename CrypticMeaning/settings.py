@@ -27,7 +27,7 @@ ACCOUNT_ACTIVATION_DAYS = 7
 SECRET_KEY = '=t5eq#t+t!fefc$2$^zusf&j*$4=cwh0dkg*m&^@hc5svq*_2e'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 TEMPLATE_DEBUG = True
 
@@ -146,8 +146,9 @@ INSTALLED_APPS += ('storages',)
 4
 5
 
-if not DEBUG:
-    AWS_STORAGE_BUCKET_NAME = os.environ['crypticmeaning']
-    STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
-    S3_URL = 'http://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
-    STATIC_URL = S3_URL
+#May be cuasing app crash
+# if not DEBUG:
+#     AWS_STORAGE_BUCKET_NAME = os.environ['crypticmeaning']
+#     STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+#     S3_URL = 'http://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
+#     STATIC_URL = S3_URL
