@@ -7,3 +7,9 @@ django-registration==1.0
 django-toolbelt==0.0.1
 gunicorn==18.0
 praw==2.1.11
+psycopg2==2.5.2
+requests==2.2.0
+six==1.5.2
+static==0.4
+update-checker==0.6
+wsgiref==0.1.2
