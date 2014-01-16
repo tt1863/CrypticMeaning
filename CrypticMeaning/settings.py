@@ -27,7 +27,7 @@ ACCOUNT_ACTIVATION_DAYS = 7
 SECRET_KEY = '=t5eq#t+t!fefc$2$^zusf&j*$4=cwh0dkg*m&^@hc5svq*_2e'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 TEMPLATE_DEBUG = True
 
