@@ -1,6 +1,6 @@
 {% load humanize %}
 Please click the link below to activate your CrypticMeaning.com account within the next 7 days.
 
-http://127.0.0.1:8000/accounts/activate/{{ activation_key }}/
+http://crypticmeaning.herokuapp.com/accounts/activate/{{ activation_key }}/
 
 If you didn't request this, you don't need to do anything; you won't receive any more email from us, and the account will expire automatically in {{ expiration_days|apnumber }} days.
