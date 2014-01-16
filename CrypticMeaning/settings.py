@@ -27,7 +27,7 @@ ACCOUNT_ACTIVATION_DAYS = 7
 SECRET_KEY = '=t5eq#t+t!fefc$2$^zusf&j*$4=cwh0dkg*m&^@hc5svq*_2e'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 TEMPLATE_DEBUG = True
 
@@ -138,3 +138,16 @@ STATICFILES_DIRS = (
 
 DEBUG = bool(os.environ.get('DJANGO_DEBUG', ''))
 TEMPLATE_DEBUG = DEBUG
+
+#For Amazon S3 static file storage
+INSTALLED_APPS += ('storages',)
+
+3
+4
+5
+
+if not DEBUG:
+    AWS_STORAGE_BUCKET_NAME = os.environ['crypticmeaning']
+    STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+    S3_URL = 'http://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
+    STATIC_URL = S3_URL
