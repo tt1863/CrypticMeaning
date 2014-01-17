@@ -1,4 +1,5 @@
 from django.conf.urls import patterns, include, url
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 from django.contrib import admin
 admin.autodiscover()
@@ -13,9 +14,5 @@ urlpatterns = patterns('',
     url(r'^forums/', include('forums.urls')),
     url(r'^accounts/', include('registration.backends.default.urls')),
 )
-
-from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-
-# ... the rest of your URLconf goes here ...
 
 urlpatterns += staticfiles_urlpatterns()
