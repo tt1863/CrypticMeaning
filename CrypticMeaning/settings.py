@@ -12,6 +12,16 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 import os
 #BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
+# Added to help use env variables
+def env_var(key, default=None):
+    """Retrieves env vars and makes Python boolean replacements"""
+    val = os.environ.get(key, default)
+    if val == 'True':
+        val = True
+    elif val == 'False':
+        val = False
+    return val
+
 SETTINGS_DIR = os.path.dirname(__file__)
 
 PROJECT_PATH = os.path.join(SETTINGS_DIR, os.pardir)
@@ -19,15 +29,11 @@ PROJECT_PATH = os.path.abspath(PROJECT_PATH)
 
 ACCOUNT_ACTIVATION_DAYS = 7
 
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
-
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '=t5eq#t+t!fefc$2$^zusf&j*$4=cwh0dkg*m&^@hc5svq*_2e'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = env_var('DJ_DEBUG', False) #Unless env var is set to True, debug is off
+TEMPLATE_DEBUG = DEBUG
 
 TEMPLATE_DEBUG = True
 
@@ -80,7 +86,7 @@ DATABASES = {
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/New_York'
 
 USE_I18N = True
 
@@ -101,24 +107,16 @@ TEMPLATE_DIRS = (TEMPLATE_PATH)
 STATIC_PATH = os.path.join(PROJECT_PATH, 'static')
 
 #COMMMENTED OUT FOR HEROKU
-# STATICFILES_DIRS = (
-#     STATIC_PATH,
-# )
+STATICFILES_DIRS = (
+    STATIC_PATH,
+)
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(PROJECT_PATH, 'media') #Absolute path to the media directory
+# MEDIA_URL = '/media/'
+# MEDIA_ROOT = os.path.join(PROJECT_PATH, 'media') #Absolute path to the media directory
 
 LOGIN_URL = '/accounts/login'
 
 from secret_settings import *
-
-#ADD FOR HEROKU
-# import dj_database_url
-# DATABASES = {'default': dj_database_url.config(default='postgres://localhost')}
-
-# Parse database configuration from $DATABASE_URL
-import dj_database_url
-DATABASES['default'] =  dj_database_url.config()
 
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
@@ -129,20 +127,18 @@ ALLOWED_HOSTS = ['*']
 # Static asset configuration
 import os
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-STATIC_ROOT = 'staticfiles'
+STATIC_ROOT = ''
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static'),
-)
-
-DEBUG = bool(os.environ.get('DJANGO_DEBUG', ''))
-TEMPLATE_DEBUG = DEBUG
+# Makes css not work in dev
+# STATICFILES_DIRS = (
+#     os.path.join(BASE_DIR, 'static'),
+# )
 
 #For Amazon S3 static file storage
 INSTALLED_APPS += ('storages',)
 
-#Causing App crash in Heroku
+#AWS S3 configuration
 if not DEBUG:
     AWS_STORAGE_BUCKET_NAME = os.environ['AWS_STORAGE_BUCKET_NAME']
     AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
@@ -150,3 +146,8 @@ if not DEBUG:
     STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
     S3_URL = 'http://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
     STATIC_URL = S3_URL
+    
+    # Parse database configuration from $DATABASE_URL
+    import dj_database_url
+    DATABASES['default'] =  dj_database_url.config()
+
