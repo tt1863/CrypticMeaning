@@ -22,7 +22,7 @@
 		<td>
 			<h4><a href="/forums/{{ forum.url }}/{{ thread.url }}">{{ thread.title }}</a></h4>
 		</td>
-		<td class="text-center">{{ user.username }}</td>
+		<td class="text-center">{{ thread.user }}</td>
 		<td class="text-center">{{ thread.num_replies }}</td>
 		<td class="text-center">{{ thread.last_post|date:"M d, Y m:s a" }}</td>
 	  </tr>
