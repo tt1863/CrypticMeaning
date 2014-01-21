@@ -1,4 +1,2 @@
 *.pyc
 populate_test_data.py
-venv/
-.env
