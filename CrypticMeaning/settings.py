@@ -31,6 +31,7 @@ ACCOUNT_ACTIVATION_DAYS = 7
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '=t5eq#t+t!fefc$2$^zusf&j*$4=cwh0dkg*m&^@hc5svq*_2e'
+#SECRET_KEY = os.environ['DJ_SECRET_KEY']
 
 DEBUG = env_var('DJ_DEBUG', False) #Unless env var is set to True, debug is off
 TEMPLATE_DEBUG = DEBUG
@@ -98,6 +99,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
+STATIC_ROOT = ''
 
 STATIC_URL = '/static/'
 
@@ -130,12 +132,6 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # Allow all host headers
 ALLOWED_HOSTS = ['*']
-
-# Static asset configuration
-import os
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-STATIC_ROOT = ''
-STATIC_URL = '/static/'
 
 # Makes css not work in dev
 # STATICFILES_DIRS = (
