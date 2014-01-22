@@ -51,6 +51,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.humanize',
     'registration',
+    'crispy_forms',
     'forums',
 )
 
@@ -150,4 +151,7 @@ if not DEBUG:
     # Parse database configuration from $DATABASE_URL
     import dj_database_url
     DATABASES['default'] =  dj_database_url.config()
+    
+# Crispy forms used with Bootstrap 3
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
