@@ -92,10 +92,12 @@ def reply(request, forum_slug, forum_id, thread_slug, thread_id):
             print post_form.errors
     else:
         post_form = PostForm()
+        posts = Post.objects.filter(thread=current_thread)
     
     context_dict = {'post_form': post_form,
                     'forum_url': forum_url,
-                    'thread_url': thread_url}
+                    'thread_url': thread_url,
+                    'posts': posts}
     
     return render_to_response('forums/reply.html', context_dict, context)
             
