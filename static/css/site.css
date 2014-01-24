@@ -10,7 +10,6 @@ body {
 
 .forum_index {
 	border: 3px solid #EEEEEE;
-	border-radius: 5px;
 	padding: 0 12px 0 12px;
 }
 
@@ -40,7 +39,6 @@ body {
 
 .thread_index {
 	border: 3px solid #EEEEEE;
-	border-radius: 5px;
 	padding: 0 12px 0 12px;
 	margin-bottom: 15px;
 }
@@ -71,7 +69,6 @@ body {
 
 .post_index {
 	border: 3px solid #EEEEEE;
-	border-radius: 5px;
 	padding: 0 12px 0 12px;
 	margin-bottom: 15px;
 }
