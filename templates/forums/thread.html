@@ -1,34 +1,31 @@
 {% extends 'forums/base.html' %}
 
 {% load static %}
+{% load crispy_forms_tags %}
 
 {% block title %}{{ thread_title }}{% endblock %}
 
 {% block body_block %}
 <div class="post_index">
 {% if posts %}
-  <table class="table table-hover">
-	<thead>
-	  <tr>
-		<th>User</th>
-		<th>Content</th>
-		<th class="text-center">Date Posted</th>
-	  </tr>
-	</thead>
-	<tbody>
+	<div class="row post_heading">
+		<div class="col-sm-2">User</div>
+		<div class="col-sm-8">Content</div>
+		<div class="col-sm-2">Date Posted</div>
+	</div>
 	{% for post in posts %}
-	  <tr>
-		<td>{{ post.user }}</td>
-		<td>{{ post.content }}</td>
-		<td class="text-center">{{ post.date_posted }}</td>
-	  </tr>
+	<div class="row post">
+		<div class="col-sm-2">{{ post.user }}</div>
+		<div class="col-sm-8">{{ post.content }}</div>
+		<div class="col-sm-2">{{ post.date_posted }}</div>
+	</div>
 	{% endfor %}
 {% else %}
-	This thread doesn't seem to exist.
+This thread doesn't seem to exist.
 {% endif %}
-	</tbody>
-  </table>
 </div>
 <hr>
-<a href="/forums/{{ forum_url }}/{{ thread.url }}/reply" class="btn btn-default btn-sm" type="submit">Reply</a>
-{% endblock %}	
+<a href="/forums/{{ forum_url }}/{{ thread.url }}/reply" class="btn btn-primary" type="submit">Reply</a>
+{% endblock %}
+
+{% block reply_block %}{% endblock %}
