@@ -157,3 +157,6 @@ if not DEBUG:
 # Crispy forms used with Bootstrap 3
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(PROJECT_PATH, 'media') #Absolute path to the media directory
+
