@@ -11,6 +11,29 @@ body {
 .forum_index {
 	border: 3px solid #EEEEEE;
 	border-radius: 5px;
+	padding: 0 12px 0 12px;
+}
+
+.forum_index .forum + .forum {
+	border-top: 3px solid #EEEEEE;
+}
+
+.forum {
+    padding: 10px 0 10px 0;
+}
+
+.forum:hover {
+    background-color: #EEEEEE;
+}
+
+.forum_heading {
+    font-weight: bold;
+    text-align: center;
+    border-bottom: 3px solid #EEEEEE;
+}
+
+.forum .col-xs-1, .forum .col-xs-2 {
+    text-align: center;
 }
 
 /* Forum */
