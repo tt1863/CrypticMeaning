@@ -4,3 +4,5 @@
 populate_test_data.py
 venv/
 .venv
+forums/migrations
+media/
