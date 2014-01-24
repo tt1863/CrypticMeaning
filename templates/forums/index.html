@@ -8,32 +8,40 @@
 
 {% block body_block %}
 <div class="forum_index">
-{% if forum_list %}
-  <table class="table table-hover">
-	<thead>
-	  <tr>
-		<th class="text-center">Forum</th>
-		<th class="text-center">Threads</th>
-		<th class="text-center">Posts</th>
-		<th class="text-center">Last post</th>
-	  </tr>
-	</thead>
-	<tbody>
-	{% for forum in forum_list %}
-	  <tr>
-		<td>
-			<h4><a href="/forums/{{ forum.url }}">{{ forum.title }}</a><br /></h4><br />
-			<p>{{ forum.description }}</p>
-		</td>
-		<td class="text-center">{{ forum.num_threads }}</td>
-		<td class="text-center">{{ forum.num_posts }}</td>
-		<td class="text-center">{{ forum.last_post|date:"M d, Y m:s a" }}</td>
-	  </tr>
-	{% endfor %}
-{% else %}
-	There are no forums here.
-{% endif %}
-	</tbody>
-  </table>
+	{% if forum_list %}
+	<div class="row forum_heading">
+		<div class="col-sm-8">
+			Forum
+		</div>
+		<div class="col-xs-1 hidden-xs">
+			Threads
+		</div>
+		<div class="col-xs-1 hidden-xs">
+			Posts
+		</div>
+		<div class="col-xs-2 hidden-xs">
+			Last Post
+		</div>
+	</div>
+		{% for forum in forum_list %}
+		<div class="row forum">
+			<div class="col-sm-8">
+				<h4 class="forum_title"><a href="/forums/{{ forum.url }}">{{ forum.title }}</a></h4>
+				<div class="forum_desc .small">{{ forum.description }}</div>
+			</div>
+			<div class="col-xs-1 hidden-xs">
+				{{ forum.num_threads }}
+			</div>
+			<div class="col-xs-1 hidden-xs">
+				{{ forum.num_posts }}
+			</div>
+			<div class="col-xs-2 hidden-xs">
+				{{ forum.last_post|date:"M d, Y m:s a" }}
+			</div>
+		</div>
+		{% endfor %}
+	{% else %}
+		There are no forums here.
+	{% endif %}
 </div>
 {% endblock %}
