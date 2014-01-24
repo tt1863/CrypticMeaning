@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 import datetime
 from django.utils import timezone
 
+
 class Forum(models.Model):
     title = models.CharField(max_length=100)
     description = models.CharField(max_length=200, blank=True)
@@ -54,8 +55,17 @@ class Post(models.Model):
     date_posted = models.DateTimeField('date posted')
     user = models.ForeignKey(User)
     
-    #Add this field
-    #user = models.ForeignKey(User)
-    
     def __unicode__(self):
         return self.content
+    
+class UserProfile(models.Model):
+    user = models.OneToOneField(User)
+    avatar = models.ImageField(upload_to='avatars', blank=True)
+    birthday = models.DateField(blank=True)
+    
+    def __unicode__(self):
+        return self.user.username
+    
+    def profile_url(self):
+        return "/forums/profile/" + self.user.username
+    
