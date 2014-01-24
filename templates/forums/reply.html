@@ -1,11 +1,9 @@
-{% extends 'forums/base.html' %}
+{% extends 'forums/thread.html' %}
 
 {% load static %}
 {% load crispy_forms_tags %}
 
-{% block title %}Reply{% endblock %}
-
-{% block body_block %}
+{% block reply_block %}
 <form action="/forums/{{ forum_url }}/{{ thread_url }}/reply/" method="post">
 	{% crispy post_form post_form.helper %}
 </form>
