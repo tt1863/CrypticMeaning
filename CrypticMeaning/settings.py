@@ -30,8 +30,7 @@ PROJECT_PATH = os.path.abspath(PROJECT_PATH)
 ACCOUNT_ACTIVATION_DAYS = 7
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '=t5eq#t+t!fefc$2$^zusf&j*$4=cwh0dkg*m&^@hc5svq*_2e'
-#SECRET_KEY = os.environ['DJ_SECRET_KEY']
+SECRET_KEY = os.environ['DJ_SECRET_KEY']
 
 DEBUG = env_var('DJ_DEBUG', False) #Unless env var is set to True, debug is off
 TEMPLATE_DEBUG = DEBUG
@@ -126,7 +125,7 @@ STATICFILES_FINDERS = (
 
 LOGIN_URL = '/accounts/login'
 
-from secret_settings import *
+#from secret_settings import *
 
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
@@ -160,4 +159,10 @@ CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(PROJECT_PATH, 'media') #Absolute path to the media directory
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'tt1863@gmail.com'
+EMAIL_HOST_PASSWORD = os.environ['EMAIL_HOST_PASSWORD']
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
 
