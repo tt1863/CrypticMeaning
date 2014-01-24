@@ -1,4 +1,4 @@
-/* Jumbotron template */
+/* Index */
 body {
     padding-bottom: 20px;
     padding-top: 50px;
@@ -38,12 +38,62 @@ body {
 
 /* Forum */
 
-.thread .row {
-	background-color: #EEEEEE;
+.thread_index {
+	border: 3px solid #EEEEEE;
+	border-radius: 5px;
+	padding: 0 12px 0 12px;
+	margin-bottom: 15px;
 }
 
-.logged_user {
-	color: #000000;
+.thread_index .thread + .thread {
+	border-top: 3px solid #EEEEEE;
 }
+
+.thread {
+    padding: 10px 0 10px 0;
+}
+
+.thread:hover {
+    background-color: #EEEEEE;
+}
+
+.thread_heading {
+    font-weight: bold;
+    text-align: center;
+    border-bottom: 3px solid #EEEEEE;
+}
+
+.thread .col-xs-1, .thread .col-xs-2 {
+    text-align: center;
+}
+
+/* Thread */
+
+.post_index {
+	border: 3px solid #EEEEEE;
+	border-radius: 5px;
+	padding: 0 12px 0 12px;
+	margin-bottom: 15px;
+}
+
+.post_index .post + .post {
+	border-top: 3px solid #EEEEEE;
+}
+
+.post {
+    padding: 10px 0 10px 0;
+    min-height: 200px;
+}
+
+.post_heading {
+    font-weight: bold;
+    text-align: center;
+    border-bottom: 3px solid #EEEEEE;
+}
+
+.post .col-sm-2 {
+    text-align: center;
+}
+
 
 /* Grid */
