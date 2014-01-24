@@ -9,15 +9,15 @@
 <div class="post_index">
 {% if posts %}
 	<div class="row post_heading">
-		<div class="col-sm-2">User</div>
-		<div class="col-sm-8">Content</div>
-		<div class="col-sm-2">Date Posted</div>
+		<div class="col-xs-2 hidden-xs">User</div>
+		<div class="col-xs-8 hidden-xs">Content</div>
+		<div class="col-xs-2 hidden-xs">Date Posted</div>
 	</div>
 	{% for post in posts %}
 	<div class="row post">
-		<div class="col-sm-2">{{ post.user }}</div>
-		<div class="col-sm-8">{{ post.content }}</div>
-		<div class="col-sm-2">{{ post.date_posted }}</div>
+		<div class="col-xs-2">{{ post.user }}</div>
+		<div class="col-xs-8">{{ post.content }}</div>
+		<div class="col-xs-2 hidden-xs">{{ post.date_posted }}</div>
 	</div>
 	{% endfor %}
 {% else %}
